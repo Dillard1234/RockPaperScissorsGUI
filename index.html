@@ -7,24 +7,23 @@
 
 <h1>Choose from Either Rock, Paper, or Scissors...</h1>
 
-<div>
-
-  <h2>Press one of the following buttons to get started</h2>
+<div id = "gameInfo">
   <p id = "player"></p>
   <p id = "computer"></p>
   <p id = "winner"></p>  
   <p id = "roundScores"></p>
+  <p id = "gameWinner"></p>
 </div>
 
-<button id="rock">Rock</button>
-<button id="paper">Paper</button>
-<button id="scissors">Scissors</button> 
+<button id="Rock">Rock</button>
+<button id="Paper">Paper</button>
+<button id="Scissors">Scissors</button> 
 
 </body>
 
 <script>
   //declaring variables....
-  let Choices = ["rock","paper", "scissors"]
+  let Choices = ["Rock","Paper", "Scissors"]
   let computerSelection,playerSelection
   let scorePlayer = 0;
   let scoreComputer = 0;
@@ -35,7 +34,8 @@ function computerPlay(){
       return compChoices[Math.floor(Math.random()*compChoices.length)];
 }
 //function that displays a prompt to retrieve the player's pick with a simple error check tacked on the end
-function playerPlay(){
+//function not needed anymore, as the player pick is now determined by the button pressed
+/*function playerPlay(){
       let playerPick = window.prompt("choose either rock, paper, or scissors:").toLowerCase();
 
       if (Choices.indexOf(playerPick) !== -1){
@@ -44,7 +44,7 @@ function playerPlay(){
         alert("invalid choice - try again");
         return playerPlay();
       }
-}
+}*/
 
 /*function increment(){
 
@@ -65,6 +65,7 @@ else{
 
 //function that plays the game outright
 function playRPS(computerSelection,playerSelection){
+//the two variables below are not needed as they are set through the element calls  
 //computerSelection = computerPlay();
 //playerSelection = playerPlay(); 
 x = Choices.indexOf(computerSelection);
@@ -87,7 +88,7 @@ else{
 
 }
 //function to play the game 5 times on a loop, then display a final message detailing the winner
-function fivePlays(){
+/*function fivePlays(){
 
 for (let i = 0; i < 6; i++){
 alert(playRPS(computerSelection,playerSelection));
@@ -101,7 +102,7 @@ if (scorePlayer > scoreComputer){
     alert("There was a tie!"); 
 }
 
-}
+}*/
 
 //fivePlays();
 
@@ -144,7 +145,18 @@ buttons.forEach((button) => {
     document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
     playRPS(computerSelection,playerSelection);
     document.getElementById('roundScores').textContent = "Player Score: " + scorePlayer + " Computer Score: " + scoreComputer;
+
+  });
+
 });
-});
+
+if (scorePlayer === 5){
+  document.getElementById('gameWinner').textContent = "The Player wins!";
+} 
+
+if (scoreComputer === 5) {
+  document.getElementById('gameWinner').textContent = "The Computer wins!";
+}
+
 </script>
 </html>
