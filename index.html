@@ -143,6 +143,7 @@ buttons.forEach((button) => {
     computerSelection = computerPlay();
     document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
     playRPS(computerSelection,playerSelection);
+    document.getElementById('roundScores').textContent = "Player Score: " + scorePlayer + " Computer Score: " + scoreComputer;
 });
 });
 </script>
