@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock, Paper, scissors</title>
+</head>
+<body>
+
+<h1>Choose from Either Rock, Paper, or Scissors...</h1>
+
+<div>
+
+  <h2>Press one of the following buttons to get started</h2>
+  <p id = "player"></p>
+  <p id = "computer"></p>
+  <p id = "winner"></p>  
+  <p id = "roundScores"></p>
+</div>
+
+<button id="rock">Rock</button>
+<button id="paper">Paper</button>
+<button id="scissors">Scissors</button> 
+
+</body>
+
+<script>
+  //declaring variables....
+  let Choices = ["rock","paper", "scissors"]
+  let computerSelection,playerSelection
+  let scorePlayer = 0;
+  let scoreComputer = 0;
+
+//function that determines the computer's choice through a random selection of the choices array above
+function computerPlay(){
+      var compChoices = Choices
+      return compChoices[Math.floor(Math.random()*compChoices.length)];
+}
+//function that displays a prompt to retrieve the player's pick with a simple error check tacked on the end
+function playerPlay(){
+      let playerPick = window.prompt("choose either rock, paper, or scissors:").toLowerCase();
+
+      if (Choices.indexOf(playerPick) !== -1){
+        return playerPick;
+      } else{
+        alert("invalid choice - try again");
+        return playerPlay();
+      }
+}
+
+/*function increment(){
+
+let x1 = x;
+let y1 = y;
+
+if (x1 === y1) {
+    return("The result is a tie!");
+}
+else if (x1 == 0 && y1 == 2 || x1 == 2 & y1 == 1 || x1 == 1 & y1 == 0){
+  return scoreComputer++ 
+}
+else{
+  return scorePlayer++ 
+}
+
+}*/
+
+//function that plays the game outright
+function playRPS(computerSelection,playerSelection){
+//computerSelection = computerPlay();
+//playerSelection = playerPlay(); 
+x = Choices.indexOf(computerSelection);
+y = Choices.indexOf(playerSelection);
+//if statement displays score per round for each side, and also returns the incremented value for storage
+if (x === y) {
+  document.getElementById('winner').textContent = "The result is a tie!";
+  //return("The Computer's score is: " + scoreComputer + " the Player's score is: " + scorePlayer);
+}
+else if (x == 0 && y == 2 || x == 2 & y == 1 || x == 1 & y == 0){
+  document.getElementById('winner').textContent = "the computer selected: " + computerSelection + " and wins, the player selected: " + playerSelection;
+  //return("The Computer's score is: " + ++scoreComputer + " the Player's score is: " + scorePlayer); 
+  return ++scoreComputer;
+}
+else{
+  document.getElementById('winner').textContent = "the player selected: " + playerSelection + " and wins, the computer selected: " + computerSelection;  
+  //return("The Computer's score is: " + scoreComputer + " the Player's score is: " + ++scorePlayer);
+  return ++scorePlayer; 
+}
+
+}
+//function to play the game 5 times on a loop, then display a final message detailing the winner
+function fivePlays(){
+
+for (let i = 0; i < 6; i++){
+alert(playRPS(computerSelection,playerSelection));
+//increment();
+}  
+if (scorePlayer > scoreComputer){
+    alert("The Player wins!");
+} else if (scoreComputer > scorePlayer){
+    alert("The Computer wins!");
+} else {
+    alert("There was a tie!"); 
+}
+
+}
+
+//fivePlays();
+
+// Below here is the DOM needed in order to displays scores and such on the page / run the above functions using buttons and the like
+
+/*document.getElementById('paper').onclick = function(e){
+  playerSelection = 'paper';
+  console.log(playerSelection);
+  document.getElementById('player').textContent = "Player Chooses: " + playerSelection;
+  computerSelection = computerPlay();
+  console.log(computerSelection);
+  document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
+}
+document.getElementById('rock').onclick = function(e){
+  playerSelection = 'rock';
+  console.log(playerSelection);
+  document.getElementById('player').textContent = "Player Chooses: " + playerSelection;
+  computerSelection = computerPlay();
+  console.log(computerSelection);
+  document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
+}
+document.getElementById('scissors').onclick = function(e){
+  playerSelection = 'scissors';
+  console.log(playerSelection);
+  document.getElementById('player').textContent = "Player Chooses: " + playerSelection;
+  computerSelection = computerPlay();
+  console.log(computerSelection);
+  document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
+}*/
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+
+  button.addEventListener('click', (e) => {
+
+    playerSelection = button.id;
+    document.getElementById('player').textContent = "Player Chooses: " + playerSelection;
+    computerSelection = computerPlay();
+    document.getElementById('computer').textContent = "Computer Chooses: " + computerSelection;
+    playRPS(computerSelection,playerSelection);
+});
+});
+</script>
+</html>
